@@ -3,7 +3,9 @@ import requests
 # APIキー、タスクID、カスタムフィールドIDを設定
 api_key = 'pk_89410085_ADBP0YVNIB91WAHA8W42LMZFX5DM7EWQ'
 task_id = '86enq7ck1' 
-custom_field_id = 'df2fe57b-7678-4b44-971d-fe9acf87e8d1' 
+
+# totalimportanceのカスタムフィールドID
+total_importance_custom_field_id = 'df2fe57b-7678-4b44-971d-fe9acf87e8d1' 
 
 # リクエストヘッダー
 headers = {
@@ -28,19 +30,19 @@ if 'subtasks' in task_details:
         subtask_response = requests.get(subtask_url, headers=headers)
         subtask_details = subtask_response.json()
 
-        specific_custom_field_id = 'c195ffbd-6798-46d5-8792-122b1d9a3dbf'
+        each_importance_custom_field_id = 'c195ffbd-6798-46d5-8792-122b1d9a3dbf'
         #  サブタスクのカスタムフィールドを取得
         if 'custom_fields' in subtask_details:
             custom_fields = subtask_details['custom_fields']
             for custom_field in custom_fields:
                 # カスタムフィールドのIDがimportanceの場合、その値を合計する
-                if custom_field['id'] == specific_custom_field_id:
+                if custom_field['id'] == each_importance_custom_field_id:
                     total_importance += int(custom_field.get('value'))
 else:
     print("No subtasks found or 'subtasks' key not present in response.")
 
 # メインタスクのカスタムフィールドを更新するURL
-update_url = f'https://api.clickup.com/api/v2/task/{task_id}/field/{custom_field_id}'
+update_url = f'https://api.clickup.com/api/v2/task/{task_id}/field/{total_importance_custom_field_id}'
 
 # 更新するデータ
 data = {
