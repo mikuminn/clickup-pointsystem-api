@@ -1,2 +1,2 @@
-# clickup-point-system-ui
+# clickup-point-system-api
 clickup-pointsystem-api
